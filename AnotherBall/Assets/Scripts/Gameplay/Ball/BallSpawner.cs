@@ -1,3 +1,4 @@
+using Gameplay.Ball;
 using UnityEngine;
 
 namespace Gameplay
@@ -6,7 +7,7 @@ namespace Gameplay
   {
     private readonly GameParams _gameParams;
 
-    public Ball SpawnOnStart()
+    public BallComponent SpawnOnStart()
     {
       return Object.Instantiate(_gameParams.BallPrefab, _gameParams.BallStartPosition, Quaternion.identity);
     }

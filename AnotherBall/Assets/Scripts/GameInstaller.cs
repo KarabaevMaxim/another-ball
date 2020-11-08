@@ -1,5 +1,6 @@
 using Application;
 using Gameplay;
+using Gameplay.Platforms;
 using UI;
 using UnityEngine;
 using Zenject;
@@ -46,6 +47,14 @@ public class GameInstaller : MonoInstaller
     Container.Bind<GameParams>()
       .FromInstance(_gameParams)
       .AsSingle();
+
+    Container.Bind<PlatformsPool>()
+      .AsSingle();
+    
+    Container.Bind<PlatformsService>()
+      .AsSingle();
+    
+    
     
     SignalBusInstaller.Install(Container);
   }

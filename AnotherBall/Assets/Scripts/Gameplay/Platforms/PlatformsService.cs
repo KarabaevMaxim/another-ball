@@ -9,7 +9,7 @@ namespace Gameplay.Platforms
     private const float PitsLength = 1;
     
     private readonly PlatformsPool _pool;
-    private readonly float _platformsSpeed;
+    private readonly GameParams _gameParams;
     private readonly Vector3 _upSpawnPosition;
     private readonly Vector3 _downSpawnPosition;
 
@@ -24,7 +24,7 @@ namespace Gameplay.Platforms
       }
     }
     
-    public Platform Spawn(PlatformPositionKind positionKind)
+    public PlatformComponent Spawn(PlatformPositionKind positionKind)
     {
       var platform = SpawnInternal(Vector3.zero);
       platform.Initialize(positionKind, _platformsSpeed);
@@ -36,22 +36,22 @@ namespace Gameplay.Platforms
       return platform;
     }
     
-    public void Despawn(Platform platform)
+    public void Despawn(PlatformComponent platform)
     {
       _pool.Despawn(platform);
     }
 
-    private Platform SpawnInternal(Vector3 position)
+    private PlatformComponent SpawnInternal(Vector3 position)
     {
       var platform = _pool.Spawn();
       platform.transform.position = position;
       return platform;
     }
 
-    public PlatformsService(PlatformsPool pool, float platformsSpeed, Transform spawnPoint)
+    public PlatformsService(PlatformsPool pool, GameParams gameParams)
     {
       _pool = pool;
-      _platformsSpeed = platformsSpeed;
+      _gameParams = gameParams;
       _upSpawnPosition = new Vector3(spawnPoint.position.x, UpPlatformsY, spawnPoint.position.y);
       _downSpawnPosition = new Vector3(spawnPoint.position.x, DownPlatformsY, spawnPoint.position.y);
     }

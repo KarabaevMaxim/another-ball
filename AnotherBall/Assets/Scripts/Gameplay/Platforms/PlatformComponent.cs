@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Gameplay.Platforms
 {
-  public class Platform : MonoBehaviour
+  public class PlatformComponent : MonoBehaviour
   {
     [SerializeField]
     private float _length = default;
