@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Zenject;
 
 namespace Gameplay.Platforms
 {
@@ -17,9 +18,8 @@ namespace Gameplay.Platforms
 
     public float Length => _length;
 
-    public void Initialize(PlatformPositionKind positionKind, float speed)
+    public void Initialize(PlatformPositionKind positionKind)
     {
-      _speed = speed;
       PositionKind = positionKind;
     }
     
@@ -32,6 +32,12 @@ namespace Gameplay.Platforms
     {
       if (!_rigidbody)
         _rigidbody = GetComponent<Rigidbody>();
+    }
+
+    [Inject]
+    private void Initialize(GameParams gameParams)
+    {
+      _speed = gameParams.PlatformsSpeed;
     }
   }
 }

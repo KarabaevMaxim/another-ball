@@ -1,5 +1,5 @@
 using System.Collections;
-using Gameplay;
+using Gameplay.Ball;
 using UI;
 using UnityEngine;
 using Zenject;
@@ -11,16 +11,22 @@ namespace Application
   /// </summary>
   public class GameViewModel
   {
+    #region Экраны
+
     private readonly PauseScreen _pauseScreen;
+    private readonly GameScreen _gameScreen;
+    private readonly WaitingStartScreen _waitingStartScreen;
+
+    #endregion
+
+    #region Зависимости
+
     private readonly EmptyMonoBeh _emptyMonoBeh;
-
     private readonly BallSpawner _ballSpawner;
-
     private readonly SignalBus _signalBus;
 
-    private readonly GameScreen _gameScreen;
+    #endregion
 
-    private readonly WaitingStartScreen _waitingStartScreen;
 
     /// <summary>
     /// Запускает ожидание ввода от пользователя для старта режима игры.

@@ -1,5 +1,6 @@
 using Application;
 using Gameplay;
+using Gameplay.Ball;
 using Gameplay.Platforms;
 using UI;
 using UnityEngine;
@@ -54,7 +55,13 @@ public class GameInstaller : MonoInstaller
     Container.Bind<PlatformsService>()
       .AsSingle();
     
+    Container
+      .BindFactory<Object, BallComponent, BallFactory>()
+      .FromFactory<PrefabFactory<BallComponent>>();
     
+    Container
+      .BindFactory<Object, PlatformComponent, PlatformsFactory>()
+      .FromFactory<PrefabFactory<PlatformComponent>>();
     
     SignalBusInstaller.Install(Container);
   }
