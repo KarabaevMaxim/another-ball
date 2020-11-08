@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace States
+namespace Gameplay.States
 {
   public struct DownState : IState
   {
