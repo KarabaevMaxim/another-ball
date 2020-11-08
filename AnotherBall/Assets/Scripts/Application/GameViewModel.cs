@@ -1,4 +1,5 @@
 using System.Collections;
+using Gameplay;
 using UI;
 using UnityEngine;
 using Zenject;
@@ -12,6 +13,9 @@ namespace Application
   {
     private readonly PauseScreen _pauseScreen;
     private readonly EmptyMonoBeh _emptyMonoBeh;
+
+    private readonly BallSpawner _ballSpawner;
+
     private readonly SignalBus _signalBus;
 
     private readonly GameScreen _gameScreen;
@@ -26,6 +30,8 @@ namespace Application
       Debug.Log("Ждем ввода от игрока");
       Time.timeScale = 0;
       _waitingStartScreen.gameObject.SetActive(true);
+      _ballSpawner.SpawnOnStart();
+      
       _emptyMonoBeh.StartCoroutine(WaitForKeyDown());
     }
 
@@ -77,14 +83,16 @@ namespace Application
       GameScreen gameScreen, 
       WaitingStartScreen waitingStartScreen, 
       PauseScreen pauseScreen, 
-      EmptyMonoBeh emptyMonoBeh)
+      EmptyMonoBeh emptyMonoBeh, 
+      BallSpawner ballSpawner)
     {
       _signalBus = signalBus;
       _gameScreen = gameScreen;
       _waitingStartScreen = waitingStartScreen;
       _pauseScreen = pauseScreen;
       _emptyMonoBeh = emptyMonoBeh;
-      
+      _ballSpawner = ballSpawner;
+
       _waitingStartScreen.gameObject.SetActive(false);
       _gameScreen.gameObject.SetActive(false);
       _pauseScreen.gameObject.SetActive(false);

@@ -1,10 +1,14 @@
 using Application;
+using Gameplay;
 using UI;
 using UnityEngine;
 using Zenject;
 
 public class GameInstaller : MonoInstaller
 {
+  [SerializeField]
+  private GameParams _gameParams = default;
+  
   [SerializeField, HideInInspector]
   private GameScreen _gameScreen;
   
@@ -35,6 +39,13 @@ public class GameInstaller : MonoInstaller
     Container.Bind<GameViewModel>()
       .AsSingle()
       .NonLazy();
+
+    Container.Bind<BallSpawner>()
+      .AsSingle();
+    
+    Container.Bind<GameParams>()
+      .FromInstance(_gameParams)
+      .AsSingle();
     
     SignalBusInstaller.Install(Container);
   }
