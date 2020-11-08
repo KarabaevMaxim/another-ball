@@ -5,7 +5,7 @@ namespace Gameplay.Platforms
 {
   public class DespawnTrigger : MonoBehaviour
   {
-    public event Action<PlatformComponent> PlatformGone;
+    public event Action<PlatformComponent> PlatformTriggered;
     
     private void OnTriggerEnter(Collider other)
     {
@@ -13,7 +13,7 @@ namespace Gameplay.Platforms
         return;
 
       var platform = other.GetComponent<PlatformComponent>();
-      PlatformGone?.Invoke(platform);
+      PlatformTriggered?.Invoke(platform);
     }
   }
 }

@@ -24,6 +24,9 @@ namespace Common
     
     [SerializeField, HideInInspector]
     private GameOverScreen _gameOverScreen;
+    
+    [SerializeField, HideInInspector]
+    private DespawnTrigger _despawnTrigger;
   
     public override void InstallBindings()
     {
@@ -80,6 +83,10 @@ namespace Common
     throw new NotImplementedException("Ввод с тачскрина не реализован");
 #endif
 
+      Container.Bind<DespawnTrigger>()
+        .FromInstance(_despawnTrigger)
+        .AsSingle();
+      
       SignalBusInstaller.Install(Container);
     }
 
@@ -96,6 +103,9 @@ namespace Common
       
       if (!_gameOverScreen)
         _gameOverScreen = FindObjectOfType<GameOverScreen>();
+      
+      if (!_despawnTrigger)
+        _despawnTrigger = FindObjectOfType<DespawnTrigger>();
     }
   }
 }

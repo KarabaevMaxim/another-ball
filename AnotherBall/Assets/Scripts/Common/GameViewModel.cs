@@ -19,7 +19,7 @@ namespace Common
     private readonly GameScreen _gameScreen;
     private readonly WaitingStartScreen _waitingStartScreen;
     private readonly GameOverScreen _gameOverScreen;
-    
+
     #endregion
 
     #region Зависимости
@@ -117,12 +117,21 @@ namespace Common
       Debug.Log("Рестарт");
     }
 
+    #region Обработчики событий
+
     private void OnInputClicked()
     {
       Physics.gravity = Physics.gravity == Vector3.down
         ? Vector3.up
         : Vector3.down;
     }
+    
+    private void OnPlatformTriggered(PlatformComponent platform)
+    {
+      _platformsSpawner.Despawn(platform);
+    }
+
+    #endregion
 
     public GameViewModel(SignalBus signalBus, 
       GameScreen gameScreen, 
@@ -132,7 +141,8 @@ namespace Common
       BallSpawner ballSpawner,
       PlatformsSpawner platformsSpawner,
       IInput input,
-      GameOverScreen gameOverScreen)
+      GameOverScreen gameOverScreen,
+      DespawnTrigger despawnTrigger)
     {
       _signalBus = signalBus;
       _gameScreen = gameScreen;
@@ -156,6 +166,8 @@ namespace Common
       _input.OnClick += OnInputClicked;
 
       Application.targetFrameRate = 30;
+
+      despawnTrigger.PlatformTriggered += OnPlatformTriggered;
       
       StartWaitingStartGame();
     }
