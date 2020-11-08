@@ -1,9 +1,11 @@
 using System;
+using Common;
 using UnityEngine;
+using Zenject;
 
 namespace Gameplay.Platforms
 {
-  public class DespawnTrigger : MonoBehaviour
+  public class PlatformTrigger : MonoBehaviour
   {
     public event Action<PlatformComponent> PlatformTriggered;
     
@@ -14,6 +16,12 @@ namespace Gameplay.Platforms
 
       var platform = other.GetComponent<PlatformComponent>();
       PlatformTriggered?.Invoke(platform);
+    }
+
+    [Inject]
+    private void Initialize(GameParams gameParams)
+    {
+      transform.localScale = new Vector3(transform.localScale.x, gameParams.PlatformsUpY - gameParams.PlatformsDownY + 1, transform.localScale.z);
     }
   }
 }

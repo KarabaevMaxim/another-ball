@@ -72,6 +72,18 @@ namespace Common
     /// </summary>
     [SerializeField]
     private int _platformsLengthOnStart;
+    
+    /// <summary>
+    /// Триггер деспауна платформ.
+    /// </summary>
+    [SerializeField]
+    private PlatformTrigger _despawnTrigger;
+    
+    /// <summary>
+    /// Триггер спауна платформ.
+    /// </summary>
+    [SerializeField]
+    private PlatformTrigger _spawnTrigger;
 
     public Vector3 BallStartPosition => _ballStartPosition;
 
@@ -107,5 +119,15 @@ namespace Common
     /// Скорость перемещения шарика.
     /// </summary>
     public float BallSpeed => _ballSpeed;
+
+    /// <summary>
+    /// Триггер деспауна платформ.
+    /// </summary>
+    public PlatformTrigger DespawnTrigger => _despawnTrigger;
+
+    /// <summary>
+    /// Триггер спауна платформ.
+    /// </summary>
+    public PlatformTrigger SpawnTrigger => _spawnTrigger;
   }
 }

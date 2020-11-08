@@ -19,6 +19,7 @@ namespace Common
     private readonly GameScreen _gameScreen;
     private readonly WaitingStartScreen _waitingStartScreen;
     private readonly GameOverScreen _gameOverScreen;
+    private readonly GameParams _gameParams;
 
     #endregion
 
@@ -142,7 +143,7 @@ namespace Common
       PlatformsSpawner platformsSpawner,
       IInput input,
       GameOverScreen gameOverScreen,
-      DespawnTrigger despawnTrigger)
+      GameParams gameParams)
     {
       _signalBus = signalBus;
       _gameScreen = gameScreen;
@@ -153,6 +154,7 @@ namespace Common
       _platformsSpawner = platformsSpawner;
       _input = input;
       _gameOverScreen = gameOverScreen;
+      _gameParams = gameParams;
 
       _waitingStartScreen.gameObject.SetActive(false);
       _gameScreen.gameObject.SetActive(false);
@@ -167,7 +169,7 @@ namespace Common
 
       Application.targetFrameRate = 30;
 
-      despawnTrigger.PlatformTriggered += OnPlatformTriggered;
+      _gameParams.DespawnTrigger.PlatformTriggered += OnPlatformTriggered;
       
       StartWaitingStartGame();
     }

@@ -13,7 +13,9 @@ namespace Gameplay.Platforms
     private readonly GameParams _gameParams;
 
     #endregion
-    
+
+    private float _spawnX;
+
     public IReadOnlyList<PlatformComponent> SpawnOnStart()
     {
       var upPlatforms = SpawnUpOnStart(SpawnUp);
@@ -67,6 +69,9 @@ namespace Gameplay.Platforms
     {
       _pool = pool;
       _gameParams = gameParams;
+      _spawnX = _gameParams.PlatformsLengthOnStart + _gameParams.PlatformsStartX;
+      var spawnTriggerPos = _gameParams.SpawnTrigger.transform.position;
+      _gameParams.SpawnTrigger.transform.position = new Vector3(_spawnX - 2, spawnTriggerPos.y, spawnTriggerPos.z);
     }
   }
 }
