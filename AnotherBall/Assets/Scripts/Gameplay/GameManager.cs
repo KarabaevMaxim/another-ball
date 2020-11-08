@@ -53,7 +53,16 @@ namespace Gameplay
     {
       _platformsService.Despawn(platform);
       _platformsService.Spawn(platform.PositionKind);
-      
+    }
+
+    public void Pause()
+    {
+      Time.timeScale = 0;
+    }
+    
+    public void Resume()
+    {
+      Time.timeScale = 1;
     }
   }
 }

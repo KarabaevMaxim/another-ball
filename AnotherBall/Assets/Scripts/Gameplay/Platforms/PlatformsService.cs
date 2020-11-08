@@ -26,7 +26,7 @@ namespace Gameplay.Platforms
     
     public Platform Spawn(PlatformPositionKind positionKind)
     {
-      var platform = SpawnInternal();
+      var platform = SpawnInternal(Vector3.zero);
       platform.Initialize(positionKind, _platformsSpeed);
 
       platform.transform.position = positionKind == PlatformPositionKind.Down 
