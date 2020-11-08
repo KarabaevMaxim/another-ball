@@ -21,6 +21,9 @@ namespace Common
   
     [SerializeField, HideInInspector]
     private WaitingStartScreen _waitingScreen;
+    
+    [SerializeField, HideInInspector]
+    private GameOverScreen _gameOverScreen;
   
     public override void InstallBindings()
     {
@@ -34,6 +37,10 @@ namespace Common
     
       Container.Bind<WaitingStartScreen>()
         .FromInstance(_waitingScreen)
+        .AsSingle();
+      
+      Container.Bind<GameOverScreen>()
+        .FromInstance(_gameOverScreen)
         .AsSingle();
 
       Container.Bind<EmptyMonoBeh>()
@@ -86,6 +93,9 @@ namespace Common
     
       if (!_waitingScreen)
         _waitingScreen = FindObjectOfType<WaitingStartScreen>();
+      
+      if (!_gameOverScreen)
+        _gameOverScreen = FindObjectOfType<GameOverScreen>();
     }
   }
 }

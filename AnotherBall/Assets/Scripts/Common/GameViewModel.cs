@@ -18,7 +18,8 @@ namespace Common
     private readonly PauseScreen _pauseScreen;
     private readonly GameScreen _gameScreen;
     private readonly WaitingStartScreen _waitingStartScreen;
-
+    private readonly GameOverScreen _gameOverScreen;
+    
     #endregion
 
     #region Зависимости
@@ -26,12 +27,22 @@ namespace Common
     private readonly EmptyMonoBeh _emptyMonoBeh;
     private readonly BallSpawner _ballSpawner;
     private readonly PlatformsSpawner _platformsSpawner;
-
     private readonly IInput _input;
-
     private readonly SignalBus _signalBus;
-
+    
     #endregion
+
+    private int _score;
+    
+    private int Score
+    {
+      get => _score;
+      set
+      {
+        _score = value;
+        _gameScreen.ScoreText = _score.ToString();
+      }
+    }
 
     /// <summary>
     /// Запускает ожидание ввода от пользователя для старта режима игры.
@@ -93,6 +104,19 @@ namespace Common
       _input.Enabled = true;
     }
 
+    private void GameOver()
+    {
+      Time.timeScale = 0;
+      _gameScreen.gameObject.SetActive(false);
+      _gameOverScreen.gameObject.SetActive(true);
+      _gameOverScreen.ResultText = $"Результат: {Score}";
+    }
+
+    private void Restart()
+    {
+      Debug.Log("Рестарт");
+    }
+
     private void OnInputClicked()
     {
       Physics.gravity = Physics.gravity == Vector3.down
@@ -107,7 +131,8 @@ namespace Common
       EmptyMonoBeh emptyMonoBeh, 
       BallSpawner ballSpawner,
       PlatformsSpawner platformsSpawner,
-      IInput input)
+      IInput input,
+      GameOverScreen gameOverScreen)
     {
       _signalBus = signalBus;
       _gameScreen = gameScreen;
@@ -117,6 +142,7 @@ namespace Common
       _ballSpawner = ballSpawner;
       _platformsSpawner = platformsSpawner;
       _input = input;
+      _gameOverScreen = gameOverScreen;
 
       _waitingStartScreen.gameObject.SetActive(false);
       _gameScreen.gameObject.SetActive(false);
@@ -124,7 +150,8 @@ namespace Common
 
       _gameScreen.OnClickPauseBtnAction += Pause;
       _pauseScreen.OnClickPlayBtnAction += Unpause;
-
+      _gameOverScreen.OnClickRestartBtnAction += Restart;
+      
       _input.Enabled = false;
       _input.OnClick += OnInputClicked;
 
