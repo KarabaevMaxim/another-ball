@@ -6,7 +6,7 @@ using UI;
 using UnityEngine;
 using Zenject;
 
-namespace Application
+namespace Common
 {
   /// <summary>
   /// Вьюмодель единственной сцены в приложении.

@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
-using Application;
+using Common;
 using UnityEngine;
 using Zenject;
 

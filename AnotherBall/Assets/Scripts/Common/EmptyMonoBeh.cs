@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Application
+namespace Common
 {
   public class EmptyMonoBeh : MonoBehaviour
   {
