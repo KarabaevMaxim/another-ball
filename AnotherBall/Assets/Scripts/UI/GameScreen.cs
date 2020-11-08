@@ -4,10 +4,16 @@ using UnityEngine.UI;
 
 namespace UI
 {
+  /// <summary>
+  /// Компонент игрового экрана.
+  /// </summary>
   public class GameScreen : MonoBehaviour
   {
+    [SerializeField]
+    private Text _score;
+    
     [SerializeField, HideInInspector]
-    private Button _btn;
+    private Button _pauseBtn;
 
     private Action _onClickPauseBtnAction;
 
@@ -17,14 +23,20 @@ namespace UI
       set
       {
         _onClickPauseBtnAction = value;
-        _btn.onClick.AddListener(() => _onClickPauseBtnAction?.Invoke());
+        _pauseBtn.onClick.AddListener(() => _onClickPauseBtnAction?.Invoke());
       }
+    }
+
+    public string ScoreText
+    {
+      get => _score.text;
+      set => _score.text = value;
     }
 
     private void OnValidate()
     {
-      if (!_btn)
-        _btn = GetComponentInChildren<Button>();
+      if (!_pauseBtn)
+        _pauseBtn = GetComponentInChildren<Button>();
     }
   }
 }

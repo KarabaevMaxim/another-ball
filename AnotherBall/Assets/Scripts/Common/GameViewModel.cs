@@ -128,7 +128,7 @@ namespace Common
       _input.Enabled = false;
       _input.OnClick += OnInputClicked;
 
-      UnityEngine.Application.targetFrameRate = 30;
+      Application.targetFrameRate = 30;
       
       StartWaitingStartGame();
     }
