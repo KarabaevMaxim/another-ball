@@ -1,5 +1,7 @@
 using System.Collections;
 using Gameplay.Ball;
+using Gameplay.Input;
+using Gameplay.Platforms;
 using UI;
 using UnityEngine;
 using Zenject;
@@ -23,10 +25,13 @@ namespace Application
 
     private readonly EmptyMonoBeh _emptyMonoBeh;
     private readonly BallSpawner _ballSpawner;
+    private readonly PlatformsSpawner _platformsSpawner;
+
+    private readonly IInput _input;
+
     private readonly SignalBus _signalBus;
 
     #endregion
-
 
     /// <summary>
     /// Запускает ожидание ввода от пользователя для старта режима игры.
@@ -37,7 +42,7 @@ namespace Application
       Time.timeScale = 0;
       _waitingStartScreen.gameObject.SetActive(true);
       _ballSpawner.SpawnOnStart();
-      
+      _platformsSpawner.SpawnOnStart();
       _emptyMonoBeh.StartCoroutine(WaitForKeyDown());
     }
 
@@ -62,6 +67,7 @@ namespace Application
       Time.timeScale = 1;
       _waitingStartScreen.gameObject.SetActive(false);
       _gameScreen.gameObject.SetActive(true);
+      _input.Enabled = true;
       Debug.Log("Игра запущена");
     }
     
@@ -73,6 +79,7 @@ namespace Application
       Time.timeScale = 0;
       _gameScreen.gameObject.SetActive(false);
       _pauseScreen.gameObject.SetActive(true);
+      _input.Enabled = false;
     }
 
     /// <summary>
@@ -83,6 +90,14 @@ namespace Application
       Time.timeScale = 1;
       _gameScreen.gameObject.SetActive(true);
       _pauseScreen.gameObject.SetActive(false);
+      _input.Enabled = true;
+    }
+
+    private void OnInputClicked()
+    {
+      Physics.gravity = Physics.gravity == Vector3.down
+        ? Vector3.up
+        : Vector3.down;
     }
 
     public GameViewModel(SignalBus signalBus, 
@@ -90,7 +105,9 @@ namespace Application
       WaitingStartScreen waitingStartScreen, 
       PauseScreen pauseScreen, 
       EmptyMonoBeh emptyMonoBeh, 
-      BallSpawner ballSpawner)
+      BallSpawner ballSpawner,
+      PlatformsSpawner platformsSpawner,
+      IInput input)
     {
       _signalBus = signalBus;
       _gameScreen = gameScreen;
@@ -98,6 +115,8 @@ namespace Application
       _pauseScreen = pauseScreen;
       _emptyMonoBeh = emptyMonoBeh;
       _ballSpawner = ballSpawner;
+      _platformsSpawner = platformsSpawner;
+      _input = input;
 
       _waitingStartScreen.gameObject.SetActive(false);
       _gameScreen.gameObject.SetActive(false);
@@ -105,6 +124,12 @@ namespace Application
 
       _gameScreen.OnClickPauseBtnAction += Pause;
       _pauseScreen.OnClickPlayBtnAction += Unpause;
+
+      _input.Enabled = false;
+      _input.OnClick += OnInputClicked;
+
+      UnityEngine.Application.targetFrameRate = 30;
+      
       StartWaitingStartGame();
     }
   }

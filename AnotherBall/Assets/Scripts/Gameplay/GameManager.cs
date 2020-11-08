@@ -12,17 +12,12 @@ namespace Gameplay
     [SerializeField, HideInInspector]
     private GameObject _platformsSpawnPoint;
     
-    private PlatformsService _platformsService;
+    private PlatformsSpawner _platformsSpawner;
     
     private void Awake()
     {
       _despawnTrigger = FindObjectOfType<DespawnTrigger>();
       _despawnTrigger.PlatformGone += OnPlatformGone;
-    }
-
-    private void Start()
-    {
-      _platformsService.SpawnOnStart(20);
     }
 
     private void OnDestroy()
@@ -41,14 +36,13 @@ namespace Gameplay
 
     private void OnPlatformGone(PlatformComponent platform)
     {
-      _platformsService.Despawn(platform);
-      _platformsService.Spawn(platform.PositionKind);
+      _platformsSpawner.Despawn(platform);
     }
 
     [Inject]
-    private void Initialize(PlatformsService platformsService)
+    private void Initialize(PlatformsSpawner platformsSpawner)
     {
-      _platformsService = platformsService;
+      _platformsSpawner = platformsSpawner;
     }
   }
 }

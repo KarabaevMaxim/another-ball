@@ -1,10 +1,13 @@
+using System;
 using Application;
 using Gameplay;
 using Gameplay.Ball;
+using Gameplay.Input;
 using Gameplay.Platforms;
 using UI;
 using UnityEngine;
 using Zenject;
+using Object = UnityEngine.Object;
 
 public class GameInstaller : MonoInstaller
 {
@@ -52,7 +55,7 @@ public class GameInstaller : MonoInstaller
     Container.Bind<PlatformsPool>()
       .AsSingle();
     
-    Container.Bind<PlatformsService>()
+    Container.Bind<PlatformsSpawner>()
       .AsSingle();
     
     Container
@@ -63,6 +66,14 @@ public class GameInstaller : MonoInstaller
       .BindFactory<Object, PlatformComponent, PlatformsFactory>()
       .FromFactory<PrefabFactory<PlatformComponent>>();
     
+#if DEBUG
+    Container.Bind<IInput>()
+      .To<MouseInput>()
+      .AsSingle();
+#else
+    throw new NotImplementedException("Ввод с тачскрина не реализован");
+#endif
+
     SignalBusInstaller.Install(Container);
   }
 
