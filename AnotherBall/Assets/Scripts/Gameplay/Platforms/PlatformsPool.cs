@@ -38,7 +38,6 @@ namespace Gameplay.Platforms
     {
       Parent = new GameObject("Platforms");
       _pools = new Dictionary<PlatformType, Queue<PlatformComponent>>();
-     // _platforms = new Queue<PlatformComponent>(gameParams.PlatformPoolCapacity * gameParams.PlatformPrefabs.Count);
 
       foreach (var prefab in gameParams.PlatformPrefabs)
       {

@@ -30,7 +30,7 @@ namespace Gameplay.Platforms
     private void OnValidate()
     {
       if (!_rigidbody)
-        _rigidbody = GetComponentInChildren<Rigidbody>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     [Inject]
