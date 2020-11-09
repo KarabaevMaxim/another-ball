@@ -16,7 +16,7 @@ namespace Gameplay.Platforms
 
     private float _spawnX;
 
-    public IReadOnlyList<PlatformComponent> SpawnOnStartGame()
+    public List<PlatformComponent> SpawnOnStartGame()
     {
       var upPlatforms = SpawnUpOnStart(SpawnUp);
       var downPlatforms = SpawnUpOnStart(SpawnDown);
@@ -38,19 +38,28 @@ namespace Gameplay.Platforms
       _pool.Despawn(platform);
     }
     
+    public void Despawn(IEnumerable<PlatformComponent> platforms)
+    {
+      foreach (var platform in platforms)
+        Despawn(platform);
+    }
+    
     private IReadOnlyList<PlatformComponent> SpawnUpOnStart(Func<float, PlatformComponent> spawnFunc)
     {
       var result = new List<PlatformComponent>();
       var currentLength = 0.0f;
       var currentX = _gameParams.PlatformsStartX;
       
-      while (currentLength <= _gameParams.PlatformsLengthOnStart)
+      while (currentLength < _gameParams.PlatformsLengthOnStart)
       {
         var platformUp = spawnFunc.Invoke(currentX);
         currentLength += platformUp.Length;
         currentX += platformUp.Length;
         result.Add(platformUp);
       }
+      
+      var despawnTriggerPos = _gameParams.DespawnTrigger.transform.position;
+      _gameParams.DespawnTrigger.transform.position = new Vector3(_spawnX - currentLength, despawnTriggerPos.y, despawnTriggerPos.z);
 
       return result;
     }

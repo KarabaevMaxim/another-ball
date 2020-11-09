@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Gameplay.Ball;
 using Gameplay.Input;
 using Gameplay.Platforms;
@@ -45,6 +46,9 @@ namespace Common
       }
     }
 
+    private BallComponent _currentBall;
+    private List<PlatformComponent> _currentPlatforms;
+
     /// <summary>
     /// Запускает ожидание ввода от пользователя для старта режима игры.
     /// </summary>
@@ -53,8 +57,8 @@ namespace Common
       Time.timeScale = 0;
       Score = 0;
       _waitingStartScreen.gameObject.SetActive(true);
-      _ballSpawner.SpawnOnStart(GameOver, () => Score++);
-      _platformsSpawner.SpawnOnStartGame();
+      _currentBall = _ballSpawner.SpawnOnStart(GameOver, () => Score++);
+      _currentPlatforms = _platformsSpawner.SpawnOnStartGame();
       _emptyMonoBeh.StartCoroutine(WaitForKeyDown());
     }
 
@@ -115,26 +119,27 @@ namespace Common
     private void Restart()
     {
       Debug.Log("Рестарт");
+      _ballSpawner.Despawn(_currentBall);
+      _platformsSpawner.Despawn(_currentPlatforms);
+      _currentPlatforms = null;
+      StartWaitingStartGame();
     }
 
     #region Обработчики событий
 
-    private void OnInputClicked()
-    {
+    private void OnInputClicked() =>
       Physics.gravity = Physics.gravity == Vector3.down
         ? Vector3.up
         : Vector3.down;
-    }
-    
+
     private void OnDespawnTrigger(PlatformComponent platform)
     {
+      _currentPlatforms.Remove(platform);
       _platformsSpawner.Despawn(platform);
     }
-    
-    private void OnSpawnTrigger(PlatformComponent platform)
-    {
-      _platformsSpawner.SpawnOnStartPos(platform.transform.position.y);
-    }
+
+    private void OnSpawnTrigger(PlatformComponent platform) =>
+      _currentPlatforms.Add(_platformsSpawner.SpawnOnStartPos(platform.transform.position.y));
 
     #endregion
 

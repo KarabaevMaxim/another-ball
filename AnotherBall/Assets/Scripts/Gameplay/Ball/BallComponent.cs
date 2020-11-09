@@ -15,7 +15,6 @@ namespace Gameplay.Ball
     private IInput _input;
     private GameParams _gameParams;
     private Rigidbody _rigidBody;
-    private SignalBus _signalBus;
 
     public Action FellInPitAction { get; set; }
     
@@ -34,7 +33,7 @@ namespace Gameplay.Ball
     private void OnTriggerEnter(Collider other)
     {
       if (other.CompareTag("Pit"))
-        FellInPitAction?.Invoke();;
+        FellInPitAction?.Invoke();
     }
 
     private void OnTriggerExit(Collider other)
@@ -44,12 +43,11 @@ namespace Gameplay.Ball
     }
 
     [Inject]
-    private void Initialize(Rigidbody rigidbody, IInput input, GameParams gameParams, SignalBus signalBus)
+    private void Initialize(Rigidbody rigidbody, IInput input, GameParams gameParams)
     {
       _rigidBody = rigidbody;
       _input = input;
       _gameParams = gameParams;
-      _signalBus = signalBus;
       _input.OnClick += OnClicked;
     }
   }

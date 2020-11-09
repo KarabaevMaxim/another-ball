@@ -1,5 +1,6 @@
 using System;
 using Common;
+using Object = UnityEngine.Object;
 
 namespace Gameplay.Ball
 {
@@ -19,7 +20,9 @@ namespace Gameplay.Ball
       ball.transform.position = _gameParams.BallStartPosition;
       return ball;
     }
-    
+
+    public void Despawn(BallComponent ball) => Object.Destroy(ball);
+
     public BallSpawner(GameParams gameParams, BallFactory factory)
     {
       _gameParams = gameParams;
