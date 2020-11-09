@@ -30,6 +30,12 @@ namespace Common
     /// </summary>
     [SerializeField]
     private float _ballSpeed;
+    
+    /// <summary>
+    /// Сила притяжения.
+    /// </summary>
+    [SerializeField]
+    private float _gravityStrength;
 
     /// <summary>
     /// Стартовая позиция платформ по оси X. 
@@ -130,5 +136,10 @@ namespace Common
     /// Триггер спауна платформ.
     /// </summary>
     public PlatformTrigger SpawnTrigger => _spawnTrigger;
+
+    /// <summary>
+    /// Сила притяжения.
+    /// </summary>
+    public float GravityStrength => _gravityStrength;
   }
 }

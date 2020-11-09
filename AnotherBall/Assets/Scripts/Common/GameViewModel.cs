@@ -120,7 +120,6 @@ namespace Common
 
     private void Restart()
     {
-      Debug.Log("Рестарт");
       _ballSpawner.Despawn(_currentBall);
       _platformsSpawner.Despawn(_currentPlatforms);
       _currentPlatforms = null;
@@ -129,10 +128,13 @@ namespace Common
 
     #region Обработчики событий
 
+    private readonly Vector3 _downGravity;
+    private readonly Vector3 _upGravity;
+    
     private void OnInputClicked() =>
-      Physics.gravity = Physics.gravity == Vector3.down
-        ? Vector3.up
-        : Vector3.down;
+      Physics.gravity = Physics.gravity == _downGravity
+        ? _upGravity
+        : _downGravity;
 
     private void OnDespawnTrigger(PlatformComponent platform)
     {
@@ -184,6 +186,9 @@ namespace Common
       _gameParams.DespawnTrigger.PlatformTriggered += OnDespawnTrigger;
       _gameParams.SpawnTrigger.PlatformTriggered += OnSpawnTrigger;
 
+      _downGravity = Vector3.down * _gameParams.GravityStrength;
+      _upGravity = Vector3.up * _gameParams.GravityStrength;
+      
       StartWaitingStartGame();
     }
   }

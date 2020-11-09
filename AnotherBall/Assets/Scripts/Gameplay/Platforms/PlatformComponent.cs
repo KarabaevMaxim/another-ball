@@ -22,10 +22,14 @@ namespace Gameplay.Platforms
 
     public PlatformType Type => _type;
 
-    private void FixedUpdate()
+    private void Update()
     {
-      _rigidbody.MovePosition(transform.position + Vector3.left * (_speed * Time.fixedDeltaTime));
+      transform.position += Vector3.left * (_speed * Time.deltaTime);
     }
+    
+    // при спауне платформ появляются зазоры
+    // private void FixedUpdate() =>
+    //   _rigidbody.MovePosition(transform.position + Vector3.left * (_speed * Time.fixedDeltaTime));
 
     private void OnValidate()
     {

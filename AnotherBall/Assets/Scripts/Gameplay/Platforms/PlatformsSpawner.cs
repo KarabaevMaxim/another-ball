@@ -15,6 +15,8 @@ namespace Gameplay.Platforms
     #endregion
 
     private readonly float _spawnX;
+    private PlatformComponent _lastUpPlatform;
+    private PlatformComponent _lastDownPlatform;
 
     public List<PlatformComponent> SpawnOnStartGame()
     {
@@ -29,8 +31,8 @@ namespace Gameplay.Platforms
     public PlatformComponent SpawnOnStartPos(float yPos)
     {
       return yPos == _gameParams.PlatformsUpY 
-        ? SpawnUp(_spawnX) 
-        : SpawnDown(_spawnX);
+        ? SpawnUp(_lastUpPlatform.transform.position.x + _lastUpPlatform.Length) 
+        : SpawnDown(_lastDownPlatform.transform.position.x + _lastDownPlatform.Length);
     }
     
     public void Despawn(PlatformComponent platform)
@@ -66,12 +68,14 @@ namespace Gameplay.Platforms
     
     private PlatformComponent SpawnUp(float x)
     {
-      return SpawnInternal(new Vector3(x, _gameParams.PlatformsUpY, 0));
+      _lastUpPlatform = SpawnInternal(new Vector3(x, _gameParams.PlatformsUpY, 0));
+      return _lastUpPlatform;
     }
     
     private PlatformComponent SpawnDown(float x)
     {
-      return SpawnInternal(new Vector3(x, _gameParams.PlatformsDownY, 0));
+      _lastDownPlatform = SpawnInternal(new Vector3(x, _gameParams.PlatformsDownY, 0));
+      return _lastDownPlatform;
     }
     
     private PlatformComponent SpawnInternal(Vector3 position)
@@ -87,7 +91,7 @@ namespace Gameplay.Platforms
       _gameParams = gameParams;
       _spawnX = _gameParams.PlatformsLengthOnStart + _gameParams.PlatformsStartX;
       var spawnTriggerPos = _gameParams.SpawnTrigger.transform.position;
-      _gameParams.SpawnTrigger.transform.position = new Vector3(_spawnX - 2, spawnTriggerPos.y, spawnTriggerPos.z);
+      _gameParams.SpawnTrigger.transform.position = new Vector3(_spawnX, spawnTriggerPos.y, spawnTriggerPos.z);
     }
   }
 }
