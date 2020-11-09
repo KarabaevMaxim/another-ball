@@ -6,6 +6,7 @@ TagManager:
   tags:
   - DespawnTrigger
   - Platform
+  - Pit
   layers:
   - Default
   - TransparentFX

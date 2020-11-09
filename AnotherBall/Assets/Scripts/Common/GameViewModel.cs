@@ -1,4 +1,5 @@
 using System.Collections;
+using Common.Signals;
 using Gameplay.Ball;
 using Gameplay.Input;
 using Gameplay.Platforms;
@@ -176,6 +177,8 @@ namespace Common
 
       _gameParams.DespawnTrigger.PlatformTriggered += OnDespawnTrigger;
       _gameParams.SpawnTrigger.PlatformTriggered += OnSpawnTrigger;
+      
+      _signalBus.Subscribe<BallFellInPitSignal>(GameOver);
       
       StartWaitingStartGame();
     }

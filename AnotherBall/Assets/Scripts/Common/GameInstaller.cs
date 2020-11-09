@@ -1,3 +1,4 @@
+using Common.Signals;
 using Gameplay.Ball;
 using Gameplay.Input;
 using Gameplay.Platforms;
@@ -77,10 +78,11 @@ namespace Common
         .To<MouseInput>()
         .AsSingle();
 #else
-    throw new NotImplementedException("Ввод с тачскрина не реализован");
+      throw new NotImplementedException("Ввод с тачскрина не реализован");
 #endif
 
       SignalBusInstaller.Install(Container);
+      Container.DeclareSignal<BallFellInPitSignal>();
     }
 
     private void OnValidate()
