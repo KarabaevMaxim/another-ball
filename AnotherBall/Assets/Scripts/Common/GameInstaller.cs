@@ -1,4 +1,3 @@
-using Common.Signals;
 using Gameplay.Ball;
 using Gameplay.Input;
 using Gameplay.Platforms;
@@ -82,7 +81,6 @@ namespace Common
 #endif
 
       SignalBusInstaller.Install(Container);
-      Container.DeclareSignal<BallFellInPitSignal>();
     }
 
     private void OnValidate()

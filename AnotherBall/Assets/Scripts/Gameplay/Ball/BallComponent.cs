@@ -1,6 +1,5 @@
 using System;
 using Common;
-using Common.Signals;
 using Gameplay.Input;
 using UnityEngine;
 using Zenject;
@@ -18,6 +17,8 @@ namespace Gameplay.Ball
     private Rigidbody _rigidBody;
     private SignalBus _signalBus;
 
+    public Action FellInPitAction { get; set; }
+    
     private void OnClicked()
     {
       _rigidBody.velocity = Physics.gravity * _gameParams.BallSpeed;
@@ -33,7 +34,7 @@ namespace Gameplay.Ball
       if (!other.CompareTag("Pit"))
         return;
 
-      _signalBus.Fire<BallFellInPitSignal>();
+      FellInPitAction?.Invoke();
     }
 
     [Inject]

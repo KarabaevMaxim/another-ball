@@ -1,5 +1,4 @@
 using System.Collections;
-using Common.Signals;
 using Gameplay.Ball;
 using Gameplay.Input;
 using Gameplay.Platforms;
@@ -54,7 +53,7 @@ namespace Common
       Debug.Log("Ждем ввода от игрока");
       Time.timeScale = 0;
       _waitingStartScreen.gameObject.SetActive(true);
-      _ballSpawner.SpawnOnStart();
+      _ballSpawner.SpawnOnStart(GameOver);
       _platformsSpawner.SpawnOnStartGame();
       _emptyMonoBeh.StartCoroutine(WaitForKeyDown());
     }
@@ -177,9 +176,7 @@ namespace Common
 
       _gameParams.DespawnTrigger.PlatformTriggered += OnDespawnTrigger;
       _gameParams.SpawnTrigger.PlatformTriggered += OnSpawnTrigger;
-      
-      _signalBus.Subscribe<BallFellInPitSignal>(GameOver);
-      
+
       StartWaitingStartGame();
     }
   }
