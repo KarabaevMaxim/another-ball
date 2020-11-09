@@ -1747,8 +1747,8 @@ MonoBehaviour:
     _ballPrefab: {fileID: 3905165530217105167, guid: a4ce3cbc3f236470c88b0f3d1c8776e5, type: 3}
     _ballSpeed: 5
     _platformsStartX: -10
-    _platformsUpY: 3
-    _platformsDownY: -3
+    _platformsUpY: 2
+    _platformsDownY: -2
     _platformPoolCapacity: 50
     _platformPrefabs:
     - {fileID: 1703829627597554370, guid: cd7801ed1b81448b4868807f25ac5c9f, type: 3}
@@ -1814,7 +1814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce587733416e444eb53a3fdea81718fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resultText: {fileID: 0}
+  _resultText: {fileID: 1087228361}
   _restartBtn: {fileID: 60168791}
 --- !u!114 &1883037483
 MonoBehaviour:

@@ -50,10 +50,10 @@ namespace Common
     /// </summary>
     private void StartWaitingStartGame()
     {
-      Debug.Log("Ждем ввода от игрока");
       Time.timeScale = 0;
+      Score = 0;
       _waitingStartScreen.gameObject.SetActive(true);
-      _ballSpawner.SpawnOnStart(GameOver);
+      _ballSpawner.SpawnOnStart(GameOver, () => Score++);
       _platformsSpawner.SpawnOnStartGame();
       _emptyMonoBeh.StartCoroutine(WaitForKeyDown());
     }
@@ -80,7 +80,6 @@ namespace Common
       _waitingStartScreen.gameObject.SetActive(false);
       _gameScreen.gameObject.SetActive(true);
       _input.Enabled = true;
-      Debug.Log("Игра запущена");
     }
     
     /// <summary>

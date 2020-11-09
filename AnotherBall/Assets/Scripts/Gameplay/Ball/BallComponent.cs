@@ -19,6 +19,8 @@ namespace Gameplay.Ball
 
     public Action FellInPitAction { get; set; }
     
+    public Action PitPassedAction { get; set; }
+    
     private void OnClicked()
     {
       _rigidBody.velocity = Physics.gravity * _gameParams.BallSpeed;
@@ -31,10 +33,14 @@ namespace Gameplay.Ball
 
     private void OnTriggerEnter(Collider other)
     {
-      if (!other.CompareTag("Pit"))
-        return;
+      if (other.CompareTag("Pit"))
+        FellInPitAction?.Invoke();;
+    }
 
-      FellInPitAction?.Invoke();
+    private void OnTriggerExit(Collider other)
+    {
+      if (other.CompareTag("PitPassTrigger"))
+        PitPassedAction?.Invoke();
     }
 
     [Inject]
