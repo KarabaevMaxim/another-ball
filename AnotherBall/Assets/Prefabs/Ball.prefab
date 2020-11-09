@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 9017585898879793595}
   - component: {fileID: 751671751388304198}
   - component: {fileID: 3905165530217105167}
+  - component: {fileID: 2178164356097804704}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -64,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 3824d0dfcc68d44139169223e94c148a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -162,3 +163,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 278df7e8c8794beabdb0f465253409ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &2178164356097804704
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3034408674711037393}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ab16f72fdac264b74a7337e444560a0e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

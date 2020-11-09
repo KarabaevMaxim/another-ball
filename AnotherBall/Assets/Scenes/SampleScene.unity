@@ -1745,10 +1745,11 @@ MonoBehaviour:
   _gameParams:
     _ballStartPosition: {x: 0, y: 0, z: 0.5}
     _ballPrefab: {fileID: 3905165530217105167, guid: a4ce3cbc3f236470c88b0f3d1c8776e5, type: 3}
-    _ballSpeed: 5
+    _ballSpeed: 3
+    _gravityStrength: 2
     _platformsStartX: -10
-    _platformsUpY: 2
-    _platformsDownY: -2
+    _platformsUpY: 2.5
+    _platformsDownY: -2.5
     _platformPoolCapacity: 50
     _platformPrefabs:
     - {fileID: 1703829627597554370, guid: cd7801ed1b81448b4868807f25ac5c9f, type: 3}
