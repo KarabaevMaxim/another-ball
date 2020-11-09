@@ -1,18 +1,29 @@
+using System;
 using System.Collections.Generic;
 using Common;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
+// ReSharper disable Unity.InefficientPropertyAccess
 
 namespace Gameplay.Platforms
 {
   public class PlatformsPool
   {
-    private readonly Queue<PlatformComponent> _platforms;
-    
+    private readonly Dictionary<PlatformType, Queue<PlatformComponent>> _pools;
+
     public GameObject Parent { get; }
-    
-    public PlatformComponent Spawn()
+
+    public PlatformComponent SpawnRandom()
     {
-      var result = _platforms.Dequeue();
+      // считаем, что всегда будет 2 типа платформ
+      var rand = Random.Range(0, 2);
+      return Spawn((PlatformType)rand);
+    }
+    
+    public PlatformComponent Spawn(PlatformType platformType)
+    {
+      var result = _pools[platformType].Dequeue();
       result.gameObject.SetActive(true);
       return result;
     }
@@ -20,21 +31,28 @@ namespace Gameplay.Platforms
     public void Despawn(PlatformComponent platform)
     {
       platform.gameObject.SetActive(false);
-      _platforms.Enqueue(platform);
+      _pools[platform.Type].Enqueue(platform);
     }
 
     public PlatformsPool(GameParams gameParams, PlatformsFactory factory)
     {
       Parent = new GameObject("Platforms");
-      _platforms = new Queue<PlatformComponent>(gameParams.PlatformPoolCapacity);
+      _pools = new Dictionary<PlatformType, Queue<PlatformComponent>>();
+     // _platforms = new Queue<PlatformComponent>(gameParams.PlatformPoolCapacity * gameParams.PlatformPrefabs.Count);
 
-      for (var i = 0; i < gameParams.PlatformPoolCapacity; i++)
+      foreach (var prefab in gameParams.PlatformPrefabs)
       {
-        var platform = factory.Create(gameParams.PlatformPrefab);
-        platform.transform.parent = Parent.transform;
-        platform.transform.position = Vector3.zero;
-        platform.gameObject.SetActive(false);
-        _platforms.Enqueue(platform);
+        if (!_pools.ContainsKey(prefab.Type))
+          _pools[prefab.Type] = new Queue<PlatformComponent>(gameParams.PlatformPoolCapacity);
+        
+        for (var i = 0; i < gameParams.PlatformPoolCapacity; i++)
+        {
+          var platform = factory.Create(prefab);
+          platform.transform.parent = Parent.transform;
+          platform.transform.position = Vector3.zero;
+          platform.gameObject.SetActive(false);
+          _pools[prefab.Type].Enqueue(platform);
+        }
       }
     }
   }

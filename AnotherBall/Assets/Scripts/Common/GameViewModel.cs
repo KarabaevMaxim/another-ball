@@ -54,7 +54,7 @@ namespace Common
       Time.timeScale = 0;
       _waitingStartScreen.gameObject.SetActive(true);
       _ballSpawner.SpawnOnStart();
-      _platformsSpawner.SpawnOnStart();
+      _platformsSpawner.SpawnOnStartGame();
       _emptyMonoBeh.StartCoroutine(WaitForKeyDown());
     }
 
@@ -127,9 +127,14 @@ namespace Common
         : Vector3.down;
     }
     
-    private void OnPlatformTriggered(PlatformComponent platform)
+    private void OnDespawnTrigger(PlatformComponent platform)
     {
       _platformsSpawner.Despawn(platform);
+    }
+    
+    private void OnSpawnTrigger(PlatformComponent platform)
+    {
+      _platformsSpawner.SpawnOnStartPos(platform.transform.position.y);
     }
 
     #endregion
@@ -169,7 +174,8 @@ namespace Common
 
       Application.targetFrameRate = 30;
 
-      _gameParams.DespawnTrigger.PlatformTriggered += OnPlatformTriggered;
+      _gameParams.DespawnTrigger.PlatformTriggered += OnDespawnTrigger;
+      _gameParams.SpawnTrigger.PlatformTriggered += OnSpawnTrigger;
       
       StartWaitingStartGame();
     }

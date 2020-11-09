@@ -1747,10 +1747,12 @@ MonoBehaviour:
     _ballPrefab: {fileID: 3905165530217105167, guid: a4ce3cbc3f236470c88b0f3d1c8776e5, type: 3}
     _ballSpeed: 5
     _platformsStartX: -10
-    _platformsUpY: 5
-    _platformsDownY: -5
+    _platformsUpY: 3
+    _platformsDownY: -3
     _platformPoolCapacity: 50
-    _platformPrefab: {fileID: 5301969563263811517, guid: bd02898d6b988412494fca6213cd9de6, type: 3}
+    _platformPrefabs:
+    - {fileID: 1703829627597554370, guid: cd7801ed1b81448b4868807f25ac5c9f, type: 3}
+    - {fileID: 2226022206776863702, guid: bd02898d6b988412494fca6213cd9de6, type: 3}
     _platformsSpeed: 1
     _platformsLengthOnStart: 30
     _despawnTrigger: {fileID: 644975826}

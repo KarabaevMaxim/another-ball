@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Gameplay.Ball;
 using Gameplay.Platforms;
 using UnityEngine;
@@ -59,7 +60,7 @@ namespace Common
     /// Префаб платформы.
     /// </summary>
     [SerializeField]
-    private PlatformComponent _platformPrefab;
+    private PlatformComponent[] _platformPrefabs;
     
     /// <summary>
     /// Скорость платформы.
@@ -91,7 +92,7 @@ namespace Common
 
     public int PlatformPoolCapacity => _platformPoolCapacity;
 
-    public PlatformComponent PlatformPrefab => _platformPrefab;
+    public IReadOnlyList<PlatformComponent> PlatformPrefabs => _platformPrefabs;
 
     public float PlatformsSpeed => _platformsSpeed;
 

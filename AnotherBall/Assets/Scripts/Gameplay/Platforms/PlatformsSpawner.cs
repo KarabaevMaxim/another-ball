@@ -16,7 +16,7 @@ namespace Gameplay.Platforms
 
     private float _spawnX;
 
-    public IReadOnlyList<PlatformComponent> SpawnOnStart()
+    public IReadOnlyList<PlatformComponent> SpawnOnStartGame()
     {
       var upPlatforms = SpawnUpOnStart(SpawnUp);
       var downPlatforms = SpawnUpOnStart(SpawnDown);
@@ -26,6 +26,18 @@ namespace Gameplay.Platforms
       return result;
     }
 
+    public PlatformComponent SpawnOnStartPos(float yPos)
+    {
+      return yPos == _gameParams.PlatformsUpY 
+        ? SpawnUp(_spawnX) 
+        : SpawnDown(_spawnX);
+    }
+    
+    public void Despawn(PlatformComponent platform)
+    {
+      _pool.Despawn(platform);
+    }
+    
     private IReadOnlyList<PlatformComponent> SpawnUpOnStart(Func<float, PlatformComponent> spawnFunc)
     {
       var result = new List<PlatformComponent>();
@@ -55,14 +67,9 @@ namespace Gameplay.Platforms
     
     private PlatformComponent SpawnInternal(Vector3 position)
     {
-      var platform = _pool.Spawn();
+      var platform = _pool.SpawnRandom();
       platform.transform.position = position;
       return platform;
-    }
-
-    public void Despawn(PlatformComponent platform)
-    {
-      _pool.Despawn(platform);
     }
 
     public PlatformsSpawner(PlatformsPool pool, GameParams gameParams)
