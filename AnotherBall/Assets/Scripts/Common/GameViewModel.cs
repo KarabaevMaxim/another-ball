@@ -56,6 +56,7 @@ namespace Common
     {
       Time.timeScale = 0;
       Score = 0;
+      _gameOverScreen.gameObject.SetActive(false);
       _waitingStartScreen.gameObject.SetActive(true);
       _currentBall = _ballSpawner.SpawnOnStart(GameOver, () => Score++);
       _currentPlatforms = _platformsSpawner.SpawnOnStartGame();
@@ -114,6 +115,7 @@ namespace Common
       _gameScreen.gameObject.SetActive(false);
       _gameOverScreen.gameObject.SetActive(true);
       _gameOverScreen.ResultText = $"Результат: {Score}";
+      _input.Enabled = false;
     }
 
     private void Restart()
@@ -168,6 +170,7 @@ namespace Common
       _waitingStartScreen.gameObject.SetActive(false);
       _gameScreen.gameObject.SetActive(false);
       _pauseScreen.gameObject.SetActive(false);
+      _gameOverScreen.gameObject.SetActive(false);
 
       _gameScreen.OnClickPauseBtnAction += Pause;
       _pauseScreen.OnClickPlayBtnAction += Unpause;

@@ -14,7 +14,7 @@ namespace Gameplay.Platforms
 
     #endregion
 
-    private float _spawnX;
+    private readonly float _spawnX;
 
     public List<PlatformComponent> SpawnOnStartGame()
     {

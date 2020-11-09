@@ -21,7 +21,7 @@ namespace Gameplay.Ball
       return ball;
     }
 
-    public void Despawn(BallComponent ball) => Object.Destroy(ball);
+    public void Despawn(BallComponent ball) => Object.Destroy(ball.gameObject);
 
     public BallSpawner(GameParams gameParams, BallFactory factory)
     {
