@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Common;
 using UnityEngine;
 
@@ -85,6 +86,7 @@ namespace Gameplay.Platforms
       return platform;
     }
 
+    [SuppressMessage("ReSharper", "Unity.InefficientPropertyAccess")]
     public PlatformsSpawner(PlatformsPool pool, GameParams gameParams)
     {
       _pool = pool;
@@ -92,6 +94,16 @@ namespace Gameplay.Platforms
       _spawnX = _gameParams.PlatformsLengthOnStart + _gameParams.PlatformsStartX;
       var spawnTriggerPos = _gameParams.SpawnTrigger.transform.position;
       _gameParams.SpawnTrigger.transform.position = new Vector3(_spawnX, spawnTriggerPos.y, spawnTriggerPos.z);
+      
+      _gameParams.UpFallTrigger.transform.position = new Vector3(
+        _gameParams.UpFallTrigger.transform.position.x, 
+        _gameParams.PlatformsUpY + 1.5f, 
+        _gameParams.UpFallTrigger.transform.position.z);
+      
+      _gameParams.DownFallTrigger.transform.position = new Vector3(
+        _gameParams.DownFallTrigger.transform.position.x, 
+        _gameParams.PlatformsDownY - .5f,
+        _gameParams.DownFallTrigger.transform.position.z);
     }
   }
 }

@@ -92,6 +92,18 @@ namespace Common
     [SerializeField]
     private PlatformTrigger _spawnTrigger;
 
+    /// <summary>
+    /// Верхний триггер падения шарика.
+    /// </summary>
+    [SerializeField]
+    private GameObject _upFallTrigger;
+    
+    /// <summary>
+    /// Нижний триггер падения шарика.
+    /// </summary>
+    [SerializeField]
+    private GameObject _downFallTrigger;
+
     public Vector3 BallStartPosition => _ballStartPosition;
 
     public BallComponent BallPrefab => _ballPrefab;
@@ -141,5 +153,15 @@ namespace Common
     /// Сила притяжения.
     /// </summary>
     public float GravityStrength => _gravityStrength;
+
+    /// <summary>
+    /// Верхний триггер падения шарика.
+    /// </summary>
+    public GameObject UpFallTrigger => _upFallTrigger;
+
+    /// <summary>
+    /// Нижний триггер падения шарика.
+    /// </summary>
+    public GameObject DownFallTrigger => _downFallTrigger;
   }
 }

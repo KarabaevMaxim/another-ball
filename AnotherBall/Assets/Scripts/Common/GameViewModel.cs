@@ -60,6 +60,7 @@ namespace Common
       _waitingStartScreen.gameObject.SetActive(true);
       _currentBall = _ballSpawner.SpawnOnStart(GameOver, () => Score++);
       _currentPlatforms = _platformsSpawner.SpawnOnStartGame();
+      Physics.gravity = _downGravity;
       _emptyMonoBeh.StartCoroutine(WaitForKeyDown());
     }
 

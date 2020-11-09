@@ -11,7 +11,7 @@ namespace Gameplay.Platforms
     
     private void OnTriggerEnter(Collider other)
     {
-      if (!other.CompareTag("Platform") && !other.CompareTag("Pit"))
+      if (!other.CompareTag("Platform"))
         return;
 
       var platform = other.GetComponent<PlatformComponent>();
